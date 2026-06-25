@@ -1,8 +1,17 @@
+:root {
+  --bg-dark: #05070a;
+  --bg-card: #0d1117;
+  --neon-blue: #00d2ff;
+  --neon-glow: rgba(0, 210, 255, 0.3);
+  --text-main: #f0f3f6;
+}
+
 body {
   margin: 0;
-  font-family: Arial;
-  background: radial-gradient(circle at top, #0a0a0a, #000);
-  color: white;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: radial-gradient(circle at top, #0a111a, var(--bg-dark));
+  color: var(--text-main);
+  min-height: 100vh;
 }
 
 /* HEADER */
@@ -10,96 +19,141 @@ header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 15px;
-  background: #0f0f0f;
-  box-shadow: 0 0 20px #00ffcc22;
+  padding: 15px 30px;
+  background: rgba(13, 17, 23, 0.95);
+  border-bottom: 2px solid var(--neon-blue);
+  box-shadow: 0 4px 20px var(--neon-glow);
   position: sticky;
   top: 0;
+  z-index: 100;
 }
 
 .logo {
-  height: 40px;
-  filter: drop-shadow(0 0 10px #00ffcc);
+  height: 42px;
+  object-fit: contain;
 }
 
 #search {
-  width: 40%;
-  padding: 10px;
-  border-radius: 8px;
-  border: none;
+  width: 300px;
+  padding: 10px 15px;
+  border-radius: 20px;
+  border: 1px solid #21262d;
+  background: #161b22;
+  color: #fff;
+  font-size: 14px;
   outline: none;
-  background: #111;
-  color: #0ff;
-  box-shadow: 0 0 10px #00ffcc33;
+  transition: 0.3s;
+}
+
+#search:focus {
+  border-color: var(--neon-blue);
+  box-shadow: 0 0 15px var(--neon-blue);
 }
 
 /* FILTERS */
-.filters {
-  padding: 10px;
+.filter-section {
+  display: flex;
+  justify-content: center;
+  padding: 25px 10px 10px;
 }
 
 .filters button {
-  margin: 5px;
-  padding: 8px 12px;
-  background: #111;
-  color: #0ff;
-  border: 1px solid #00ffcc33;
-  border-radius: 6px;
+  margin: 0 8px;
+  padding: 8px 20px;
+  background: #161b22;
+  color: #8b949e;
+  border: 1px solid #30363d;
+  border-radius: 20px;
   cursor: pointer;
+  font-weight: 600;
+  transition: 0.2s;
 }
 
-.filters button:hover {
-  box-shadow: 0 0 10px #00ffcc55;
+.filters button:hover, .filters button.active {
+  color: var(--neon-blue);
+  border-color: var(--neon-blue);
+  background: rgba(0, 210, 255, 0.05);
+  box-shadow: 0 0 10px var(--neon-glow);
 }
 
-/* GRID */
+/* GRID & CARDS */
+main {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+h2 {
+  font-weight: 500;
+  letter-spacing: 0.5px;
+  border-left: 4px solid var(--neon-blue);
+  padding-left: 10px;
+}
+
 .grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-  gap: 15px;
-  padding: 20px;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 25px;
+  padding: 20px 0;
 }
 
-/* CARDS */
 .card {
-  background: #111;
+  background: var(--bg-card);
   border-radius: 12px;
   overflow: hidden;
   text-decoration: none;
-  color: white;
-  transition: 0.2s;
-  border: 1px solid #00ffcc22;
+  color: var(--text-main);
+  transition: transform 0.3s, box-shadow 0.3s, border-color 0.3s;
+  border: 1px solid #21262d;
+  display: flex;
+  flex-direction: column;
+}
+
+.card-img-wrapper {
+  width: 100%;
+  height: 140px;
+  background: #161b22;
+  overflow: hidden;
 }
 
 .card img {
   width: 100%;
-  height: 120px;
+  height: 100%;
   object-fit: cover;
+  transition: transform 0.5s;
+}
+
+.card-info {
+  padding: 15px;
+  text-align: left;
 }
 
 .card p {
-  text-align: center;
-  margin: 5px 0;
+  margin: 0 0 8px 0;
+  font-size: 16px;
+  font-weight: 600;
 }
 
 .card:hover {
-  transform: scale(1.08);
-  box-shadow: 0 0 20px #00ffcc55;
-  border-color: #00ffcc;
+  transform: translateY(-5px);
+  border-color: var(--neon-blue);
+  box-shadow: 0 8px 25px var(--neon-glow);
 }
 
-/* VIEWS */
+.card:hover img {
+  transform: scale(1.05);
+}
+
+/* VIEWS COUNTER */
 .views {
-  display: block;
-  text-align: center;
   font-size: 12px;
-  color: #0ff;
-  padding-bottom: 8px;
+  color: var(--neon-blue);
+  opacity: 0.8;
 }
 
-/* MOBILE */
 @media (max-width: 600px) {
-  #search {
-    width: 60%;
-  }
+  header { flex-direction: column; gap: 15px; }
+  #search { width: 100%; }
+  .filters { display: flex; overflow-x: auto; width: 100%; padding-bottom: 5px; }
+  .filters button { flex: 0 0 auto; }
 }

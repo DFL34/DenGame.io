@@ -2,48 +2,34 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>DenGame</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
 <header>
-  <img src="logo.png" class="logo">
+  <!-- Fixed case sensitivity and wrapped in a class -->
+  <div class="logo-container">
+    <img src="logo.png" class="logo" alt="DenGame Logo">
+  </div>
   <input id="search" type="text" placeholder="Search games..." oninput="filterGames()">
 </header>
 
-<section class="filters">
-  <button onclick="showAll()">All</button>
-  <button onclick="filterCategory('horror')">Horror</button>
-  <button onclick="filterCategory('multiplayer')">Multiplayer</button>
-  <button onclick="filterCategory('vr')">VR</button>
-</section>
-
-<section>
-  <h2>🔥 Featured Games</h2>
-
-  <div class="grid">
-
-    <a class="card horror" href="games/game1/index.html" onclick="addView('game1')">
-      <img src="images/game1.png">
-      <p>Backrooms Horror</p>
-      <span class="views" id="game1-views">0 views</span>
-    </a>
-
-    <a class="card multiplayer" href="games/game2/index.html" onclick="addView('game2')">
-      <img src="images/game2.png">
-      <p>Online Battle</p>
-      <span class="views" id="game2-views">0 views</span>
-    </a>
-
-    <a class="card vr" href="games/game3/index.html" onclick="addView('game3')">
-      <img src="images/game3.png">
-      <p>VR Test</p>
-      <span class="views" id="game3-views">0 views</span>
-    </a>
-
+<section class="filter-section">
+  <div class="filters">
+    <button class="active" onclick="filterCategory('all', this)">All</button>
+    <button onclick="filterCategory('horror', this)">Horror</button>
+    <button onclick="filterCategory('multiplayer', this)">Multiplayer</button>
+    <button onclick="filterCategory('vr', this)">VR</button>
   </div>
 </section>
+
+<main>
+  <h2>🔥 Featured Games</h2>
+  <!-- JS will now inject your custom games folder list inside here -->
+  <div class="grid" id="games-grid"></div>
+</main>
 
 <script src="script.js"></script>
 </body>
