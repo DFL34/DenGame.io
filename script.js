@@ -1,12 +1,12 @@
-// Centralized Game Object Matrix Configuration.
-// Simply drop your real folder pathways directly inside this storage element array.
+// Centralized Game Array Matrix
+// Enter all future game directories directly down into this structured framework array.
 const MY_GAMES = [
   {
-    id: "space-shooter-game",
-    title: "Space Shooter 2026",
+    id: "bloxorz-3d-clone",
+    title: "Bloxorz 3D",
     category: "multiplayer", 
-    folderPath: "games/space-shooter/index.html",
-    imagePath: "games/space-shooter/thumb.png"
+    folderPath: "games/bloxorz/index.html",
+    imagePath: "games/bloxorz/backround_pic1.jpg"
   }
 ];
 
@@ -22,8 +22,8 @@ function renderGames(gamesList) {
   if(gamesList.length === 0) {
     grid.innerHTML = `
       <div style="grid-column: 1/-1; text-align: center; padding: 60px 20px; color: var(--text-muted);">
-        <p style="font-size: 20px; margin-bottom: 10px;">🛸 Transmission Empty</p>
-        <p style="font-size: 14px;">No active game directories match that query sequence.</p>
+        <p style="font-size: 16px; margin-bottom: 5px;">No games available</p>
+        <p style="font-size: 13px;">Check back later for updates.</p>
       </div>`;
     return;
   }
@@ -34,14 +34,13 @@ function renderGames(gamesList) {
     const cardHTML = `
       <a class="game-card" href="${game.folderPath}" onclick="addView('${game.id}')">
         <div class="thumb-container">
-          <span class="category-badge">${game.category}</span>
           <img src="${game.imagePath}" alt="${game.title}" onerror="this.src='https://placehold.co{encodeURIComponent(game.title)}'">
         </div>
         <div class="card-details">
           <div class="game-title">${game.title}</div>
           <div class="card-meta">
             <span>Play Now ➔</span>
-            <span class="view-count" id="${game.id}-views">👁️ ${savedViews}</span>
+            <span class="view-count" id="${game.id}-views">Views: ${savedViews}</span>
           </div>
         </div>
       </a>
@@ -53,7 +52,6 @@ function renderGames(gamesList) {
 function filterGames() {
   const input = document.getElementById("search").value.toLowerCase();
   
-  // Filter by both matching search query AND currently active category selection
   const filtered = MY_GAMES.filter(game => {
     const matchesSearch = game.title.toLowerCase().includes(input);
     const matchesCategory = currentCategory === "all" || game.category === currentCategory;
@@ -66,11 +64,8 @@ function filterGames() {
 function filterCategory(category, buttonEl) {
   currentCategory = category;
   
-  // Update sidebar activation highlights
   document.querySelectorAll(".nav-item").forEach(btn => btn.classList.remove("active"));
   buttonEl.classList.add("active");
-
-  // Clear tracking entry fields when swapping categories
   document.getElementById("search").value = "";
 
   if (category === 'all') {
@@ -88,7 +83,6 @@ function addView(gameId) {
   localStorage.setItem(key, views);
 }
 
-// Start rendering when file systems have finished parsing
 window.onload = () => {
   renderGames(MY_GAMES);
 };
