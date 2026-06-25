@@ -1,28 +1,30 @@
-// Add or remove your actual games here
+// Centralized Game Object Matrix Configuration.
+// Simply drop your real folder pathways directly inside this storage element array.
 const MY_GAMES = [
   {
-    id: "my-first-horror",
-    title: "My Custom Horror Game",
-    category: "horror",
-    folderPath: "games/your-game-1/index.html",
-    imagePath: "games/your-game-1/thumbnail.png"
-  },
-  {
-    id: "arena-battle",
-    title: "Multiplayer Arena",
-    category: "multiplayer",
-    folderPath: "games/your-game-2/index.html",
-    imagePath: "games/your-game-2/thumbnail.png"
+    id: "space-shooter-game",
+    title: "Space Shooter 2026",
+    category: "multiplayer", 
+    folderPath: "games/space-shooter/index.html",
+    imagePath: "games/space-shooter/thumb.png"
   }
 ];
 
-// Dynamically render lists
+let currentCategory = "all";
+
 function renderGames(gamesList) {
   const grid = document.getElementById("games-grid");
+  const countTag = document.getElementById("count-tag");
+  
   grid.innerHTML = "";
+  countTag.innerText = `${gamesList.length} Game${gamesList.length === 1 ? '' : 's'} Available`;
 
   if(gamesList.length === 0) {
-    grid.innerHTML = `<p style="color: #8b949e; grid-column: 1/-1; text-align: center;">No games match your search criteria.</p>`;
+    grid.innerHTML = `
+      <div style="grid-column: 1/-1; text-align: center; padding: 60px 20px; color: var(--text-muted);">
+        <p style="font-size: 20px; margin-bottom: 10px;">🛸 Transmission Empty</p>
+        <p style="font-size: 14px;">No active game directories match that query sequence.</p>
+      </div>`;
     return;
   }
 
@@ -30,13 +32,17 @@ function renderGames(gamesList) {
     const savedViews = localStorage.getItem(game.id + "_views") || 0;
     
     const cardHTML = `
-      <a class="card" href="${game.folderPath}" onclick="addView('${game.id}')" data-category="${game.category}">
-        <div class="card-img-wrapper">
-          <img src="${game.imagePath}" alt="${game.title}" onerror="this.src='https://placehold.co'">
+      <a class="game-card" href="${game.folderPath}" onclick="addView('${game.id}')">
+        <div class="thumb-container">
+          <span class="category-badge">${game.category}</span>
+          <img src="${game.imagePath}" alt="${game.title}" onerror="this.src='https://placehold.co{encodeURIComponent(game.title)}'">
         </div>
-        <div class="card-info">
-          <p>${game.title}</p>
-          <span class="views" id="${game.id}-views">👁️ ${savedViews} views</span>
+        <div class="card-details">
+          <div class="game-title">${game.title}</div>
+          <div class="card-meta">
+            <span>Play Now ➔</span>
+            <span class="view-count" id="${game.id}-views">👁️ ${savedViews}</span>
+          </div>
         </div>
       </a>
     `;
@@ -46,14 +52,26 @@ function renderGames(gamesList) {
 
 function filterGames() {
   const input = document.getElementById("search").value.toLowerCase();
-  const filtered = MY_GAMES.filter(game => game.title.toLowerCase().includes(input));
+  
+  // Filter by both matching search query AND currently active category selection
+  const filtered = MY_GAMES.filter(game => {
+    const matchesSearch = game.title.toLowerCase().includes(input);
+    const matchesCategory = currentCategory === "all" || game.category === currentCategory;
+    return matchesSearch && matchesCategory;
+  });
+  
   renderGames(filtered);
 }
 
 function filterCategory(category, buttonEl) {
-  // Toggle active styling
-  document.querySelectorAll(".filters button").forEach(btn => btn.classList.remove("active"));
+  currentCategory = category;
+  
+  // Update sidebar activation highlights
+  document.querySelectorAll(".nav-item").forEach(btn => btn.classList.remove("active"));
   buttonEl.classList.add("active");
+
+  // Clear tracking entry fields when swapping categories
+  document.getElementById("search").value = "";
 
   if (category === 'all') {
     renderGames(MY_GAMES);
@@ -70,7 +88,7 @@ function addView(gameId) {
   localStorage.setItem(key, views);
 }
 
-// Kickstart deployment on load
+// Start rendering when file systems have finished parsing
 window.onload = () => {
   renderGames(MY_GAMES);
 };

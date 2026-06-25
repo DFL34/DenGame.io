@@ -3,33 +3,58 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>DenGame</title>
+  <title>DenGame.io | Play Free Games Online</title>
   <link rel="stylesheet" href="style.css">
+  <!-- Added Google Icons for a clean, professional CrazyGames look -->
+  <link href="https://googleapis.com" rel="stylesheet">
 </head>
 <body>
 
-<header>
-  <!-- Fixed case sensitivity and wrapped in a class -->
-  <div class="logo-container">
-    <img src="logo.png" class="logo" alt="DenGame Logo">
-  </div>
-  <input id="search" type="text" placeholder="Search games..." oninput="filterGames()">
-</header>
+<div class="app-container">
+  <!-- SIDEBAR NAVIGATION -->
+  <aside class="sidebar">
+    <div class="brand">
+      <img src="logo.png" class="logo" alt="DenGame Logo" onerror="this.style.display='none'; document.getElementById('text-logo').style.display='block';">
+      <h1 id="text-logo" style="display:none;">DEN<span>GAME</span></h1>
+    </div>
+    
+    <nav class="nav-menu">
+      <button class="nav-item active" onclick="filterCategory('all', this)">
+        <span class="icon">🎮</span> All Games
+      </button>
+      <button class="nav-item" onclick="filterCategory('horror', this)">
+        <span class="icon">👻</span> Horror
+      </button>
+      <button class="nav-item" onclick="filterCategory('multiplayer', this)">
+        <span class="icon">⚔️</span> Multiplayer
+      </button>
+      <button class="nav-item" onclick="filterCategory('vr', this)">
+        <span class="icon">🥽</span> VR Games
+      </button>
+    </nav>
+    <div class="sidebar-footer">© 2026 DenGame</div>
+  </aside>
 
-<section class="filter-section">
-  <div class="filters">
-    <button class="active" onclick="filterCategory('all', this)">All</button>
-    <button onclick="filterCategory('horror', this)">Horror</button>
-    <button onclick="filterCategory('multiplayer', this)">Multiplayer</button>
-    <button onclick="filterCategory('vr', this)">VR</button>
-  </div>
-</section>
+  <!-- MAIN CONTENT AREA -->
+  <div class="main-wrapper">
+    <header class="top-bar">
+      <div class="search-box">
+        <span class="search-icon">🔍</span>
+        <input id="search" type="text" placeholder="Search across your custom library..." oninput="filterGames()">
+      </div>
+    </header>
 
-<main>
-  <h2>🔥 Featured Games</h2>
-  <!-- JS will now inject your custom games folder list inside here -->
-  <div class="grid" id="games-grid"></div>
-</main>
+    <main class="content">
+      <div class="section-header">
+        <h2 class="section-title"><span class="neon-dot"></span> 🔥 Featured Platform Releases</h2>
+        <div class="game-count" id="count-tag">0 Games Loaded</div>
+      </div>
+      
+      <!-- High density portal grid matrix -->
+      <div class="crazy-grid" id="games-grid"></div>
+    </main>
+  </div>
+</div>
 
 <script src="script.js"></script>
 </body>
