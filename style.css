@@ -1,0 +1,105 @@
+body {
+  margin: 0;
+  font-family: Arial;
+  background: radial-gradient(circle at top, #0a0a0a, #000);
+  color: white;
+}
+
+/* HEADER */
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px;
+  background: #0f0f0f;
+  box-shadow: 0 0 20px #00ffcc22;
+  position: sticky;
+  top: 0;
+}
+
+.logo {
+  height: 40px;
+  filter: drop-shadow(0 0 10px #00ffcc);
+}
+
+#search {
+  width: 40%;
+  padding: 10px;
+  border-radius: 8px;
+  border: none;
+  outline: none;
+  background: #111;
+  color: #0ff;
+  box-shadow: 0 0 10px #00ffcc33;
+}
+
+/* FILTERS */
+.filters {
+  padding: 10px;
+}
+
+.filters button {
+  margin: 5px;
+  padding: 8px 12px;
+  background: #111;
+  color: #0ff;
+  border: 1px solid #00ffcc33;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.filters button:hover {
+  box-shadow: 0 0 10px #00ffcc55;
+}
+
+/* GRID */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 15px;
+  padding: 20px;
+}
+
+/* CARDS */
+.card {
+  background: #111;
+  border-radius: 12px;
+  overflow: hidden;
+  text-decoration: none;
+  color: white;
+  transition: 0.2s;
+  border: 1px solid #00ffcc22;
+}
+
+.card img {
+  width: 100%;
+  height: 120px;
+  object-fit: cover;
+}
+
+.card p {
+  text-align: center;
+  margin: 5px 0;
+}
+
+.card:hover {
+  transform: scale(1.08);
+  box-shadow: 0 0 20px #00ffcc55;
+  border-color: #00ffcc;
+}
+
+/* VIEWS */
+.views {
+  display: block;
+  text-align: center;
+  font-size: 12px;
+  color: #0ff;
+  padding-bottom: 8px;
+}
+
+/* MOBILE */
+@media (max-width: 600px) {
+  #search {
+    width: 60%;
+  }
+}
